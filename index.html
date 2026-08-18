@@ -353,46 +353,6 @@
   .caf-head .sizes { font-size: .82rem; }
 
   /* ================================================================
-     PIE: sucursales y contacto
-     Hace que la carta funcione tambien como mini sitio. El telefono
-     esta reservado: se completa en carta.json cuando lo den.
-     ================================================================ */
-  .pie {
-    max-width: 1560px;
-    margin: 0 auto;
-    padding: clamp(24px, 3vw, 40px) clamp(16px, 2.6vw, 52px) 0;
-    border-top: 1px solid var(--brown-3);
-  }
-  .pie .cols-pie {
-    display: grid; grid-template-columns: 1fr; gap: clamp(20px, 3vw, 44px);
-  }
-  @media (min-width: 660px) { .pie .cols-pie { grid-template-columns: 1fr 1fr auto; } }
-
-  .pie h4 {
-    margin: 0 0 6px;
-    font-family: "Arial Black", "Segoe UI Black", sans-serif;
-    font-weight: 900; font-size: .88rem; letter-spacing: .08em;
-    text-transform: uppercase; color: var(--navy);
-  }
-  .pie .dir { font-size: .92rem; color: var(--brown-2); }
-  .pie .hs  { font-size: .84rem; color: var(--ink-soft); }
-  .pie .tel { font-size: .88rem; color: var(--brown-2); margin-top: 4px; }
-  .pie a {
-    color: var(--line); text-decoration: none;
-    border-bottom: 1px solid var(--lav); padding-bottom: 1px;
-  }
-  .pie a:hover { color: var(--brown-2); border-color: var(--brown-2); }
-  .pie a:focus-visible { outline: 3px solid var(--navy); outline-offset: 3px; }
-  .pie .redes {
-    display: flex; flex-direction: column; gap: 8px;
-    font-size: .84rem; letter-spacing: .06em; text-transform: uppercase; font-weight: 700;
-  }
-  .pie .cierre-pie {
-    text-align: center; padding: clamp(20px, 3vw, 34px) 0 clamp(10px, 2vw, 18px);
-    font-size: .78rem; color: var(--ink-soft); letter-spacing: .06em;
-  }
-
-  /* ================================================================
      CELULAR EN VERTICAL
      Los titulos estaban pensados para una linea. En pantalla angosta
      no entraban y se partian en dos: la pildora redondeada se volvia
@@ -720,33 +680,6 @@
     </section>
   </div>
 </div>
-<div class="pie">
-  <div class="cols-pie">
-
-    <div>
-      <h4>Almagro</h4>
-      <div class="dir">Tte. Gral. Juan D. Perón 4129</div>
-      <div class="hs">Lunes a sábado, de 7:30 a 20:00</div>
-      <div class="tel" data-tel="almagro"></div>
-    </div>
-
-    <div>
-      <h4>Villa Lugano</h4>
-      <div class="dir">Av. Riestra 6221</div>
-      <div class="hs">Martes a domingo, de 7:30 a 20:30</div>
-      <div class="tel" data-tel="lugano"></div>
-    </div>
-
-    <div class="redes">
-      <a href="https://www.instagram.com/croissantclub.ba/" target="_blank" rel="noopener">Instagram</a>
-      <a href="https://search.google.com/local/writereview?placeid=ChIJyV-hk-vJvJURK0MXK1hlW60" target="_blank" rel="noopener">Dejanos tu opinión</a>
-    </div>
-
-  </div>
-
-  <div class="cierre-pie">Croissant Club · Café de especialidad y panadería artesanal</div>
-</div>
-
 <script>
 /* ------------------------------------------------------------------
    Carta editable desde GitHub.
@@ -870,18 +803,6 @@
           var el = nuevoItem(cont, p);
           if (el) { cont.appendChild(el); sumados++; }
         });
-      });
-
-      // --- telefonos del pie ---
-      // Vacios no muestran nada: el pie no queda con un hueco raro.
-      var tels = d.telefonos || {};
-      document.querySelectorAll('.tel[data-tel]').forEach(function (el) {
-        var t = String(tels[el.dataset.tel] || '').trim();
-        if (!t) return;
-        var a = document.createElement('a');
-        a.href = 'tel:' + t.replace(/[^\d+]/g, '');
-        a.textContent = t;
-        el.appendChild(a);
       });
 
       console.log('carta.json aplicado — precios ' + n + ', nuevos ' + sumados + ', ajuste ' + ajuste);

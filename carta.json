@@ -2,11 +2,6 @@
   "_1_como_se_usa": "Cambia lo que necesites y guarda. Todo lo que no toques queda como esta.",
   "_2_ajuste": "Aumento general. 1 = precios tal cual. 1.15 = todo un 15% mas caro.",
   "ajuste": 1,
-  "_2b_telefonos": "Telefono de cada sucursal. Vacio no muestra nada. Ej: \"almagro\": \"11 2345-6789\".",
-  "telefonos": {
-    "almagro": "",
-    "lugano": ""
-  },
   "_3_precios": "El precio de cada producto, sin puntos. Doce mil cien se escribe 12100.",
   "precios": {
     "tostadas": 9900,
