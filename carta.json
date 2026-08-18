@@ -1,7 +1,7 @@
 {
   "_1_como_se_usa": "Cambia lo que necesites y guarda. Todo lo que no toques queda como esta.",
   "_2_ajuste": "Aumento general. 1 = precios tal cual. 1.15 = todo un 15% mas caro.",
-  "ajuste": 1.15,
+  "ajuste": 1,
   "_3_precios": "El precio de cada producto, sin puntos. Doce mil cien se escribe 12100.",
   "precios": {
     "tostadas": 9900,
@@ -63,34 +63,16 @@
     "ensaladas": 19900
   },
   "_4_nombres": "Para renombrar un producto. Ej: \"tostadas\": \"Tostadas de campo\".",
-  "nombres": {
-    "tostadas": "Tostadas de campo"
-  },
+  "nombres": {},
   "_5_ingredientes": "Para cambiar la descripcion de un producto.",
-  "ingredientes": {
-    "huevos-revueltos": "PRUEBA: con tostada, dip de queso crema y ciboulette"
-  },
+  "ingredientes": {},
   "_6_ocultar": "Productos que ya no se venden. Se escriben entre comillas y con coma.",
-  "ocultar": [
-    "milkshake-oreo",
-    "campari"
-  ],
+  "ocultar": [],
   "_7_agregar": "Productos nuevos. Van dentro de su seccion.",
   "agregar": {
-    "desayunos": [
-      {
-        "nombre": "Budin de banana",
-        "precio": 7900,
-        "ingredientes": "Con nueces y dulce de leche"
-      }
-    ],
+    "desayunos": [],
     "laminados": [],
-    "milkshakes": [
-      {
-        "nombre": "Milkshake de pistacho",
-        "precio": 8200
-      }
-    ],
+    "milkshakes": [],
     "jugos": [],
     "alcohol": [],
     "cafeteria": [],
