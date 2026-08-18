@@ -1,0 +1,597 @@
+<title>Croissant Club</title>
+<style>
+  /* Identidad tomada del menú digital; contenido y estructura, del menú impreso de hoy. */
+  :root {
+    --paper:    #EFE9E0;
+    --paper-2:  #FCFAF6;
+    --navy:     #414B68;
+    --brown:    #7C4A2E;
+    --brown-2:  #6B3F26;
+    --brown-3:  #8C5A3A;
+    --lav:      #B3B1C9;
+    --lav-soft: #CFCEDF;
+    --ink-soft: #8A7B6C;
+    --line:     #8A5A3B;
+    --frost:    #9FB4CC;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    padding: 28px 16px 64px;
+    background: var(--paper);
+    color: var(--brown);
+    font-family: "Century Gothic", "Questrial", "Segoe UI", Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.35;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .sheet {
+    position: relative;
+    max-width: 820px;
+    margin: 0 auto 34px;
+    background: var(--paper);
+    padding: 34px 40px 44px;
+    box-shadow: 0 2px 10px rgba(70,55,40,.13);
+    overflow: hidden;
+  }
+  .sheet::before {
+    content: "";
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: .06; pointer-events: none; z-index: 0;
+  }
+  .sheet > * { position: relative; z-index: 1; }
+  @media (max-width: 600px) { .sheet { padding: 24px 20px 32px; } }
+
+  /* ---------- logo ---------- */
+  .logo { display: flex; flex-direction: column; align-items: center; margin-bottom: 24px; }
+  .wordmark {
+    font-family: "Segoe Script", "Lucida Handwriting", "Brush Script MT", cursive;
+    font-size: 1.72rem; font-weight: 700; color: #23242A; margin-top: -4px;
+  }
+
+  /* ---------- títulos ---------- */
+  .band {
+    display: inline-block;
+    background: var(--lav);
+    border-radius: 22px;
+    padding: 7px 26px;
+    margin: 0 0 14px;
+    font-family: "Arial Black", "Segoe UI Black", sans-serif;
+    font-weight: 900;
+    font-size: 1.02rem;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    color: var(--navy);
+  }
+  .pill {
+    display: inline-block;
+    background: var(--lav);
+    border-radius: 24px;
+    padding: 4px 32px;
+    margin: 0 0 14px;
+    font-family: "Segoe Script", "Lucida Handwriting", "Brush Script MT", cursive;
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: var(--navy);
+  }
+  .bare {
+    margin: 0 0 12px;
+    font-family: "Arial Black", "Segoe UI Black", sans-serif;
+    font-weight: 900;
+    font-size: 1.42rem;
+    letter-spacing: .02em;
+    text-transform: uppercase;
+    color: var(--navy);
+  }
+
+  /* ---------- columnas ---------- */
+  .cols { display: grid; grid-template-columns: 1fr; gap: 30px; align-items: start; }
+  @media (min-width: 660px) {
+    .cols.two   { grid-template-columns: 1fr 1fr; gap: 38px; }
+    .cols.lean  { grid-template-columns: 1.25fr 1fr; gap: 38px; }
+  }
+  .stack { display: grid; gap: 30px; }
+
+  /* ---------- ítems de desayuno ---------- */
+  .brk { margin-bottom: 11px; }
+  .brk .t {
+    font-size: .96rem;
+    font-weight: 700;
+    letter-spacing: .035em;
+    text-transform: uppercase;
+    color: var(--brown-2);
+  }
+  .brk .t .pz { font-size: .78rem; font-weight: 400; color: var(--brown); }
+  .brk .d {
+    margin: 2px 0 0;
+    font-size: .78rem;
+    line-height: 1.35;
+    letter-spacing: .02em;
+    text-transform: uppercase;
+    color: var(--brown);
+    max-width: 48ch;
+  }
+
+  /* ---------- listas con viñeta ---------- */
+  ul.dot { list-style: none; margin: 0; padding: 0; }
+  ul.dot > li {
+    position: relative;
+    padding: 0 0 8px 17px;
+    font-size: .95rem;
+    letter-spacing: .03em;
+    text-transform: uppercase;
+    color: var(--brown);
+  }
+  ul.dot > li::before {
+    content: ""; position: absolute; left: 2px; top: .5em;
+    width: 4.5px; height: 4.5px; border-radius: 50%; background: var(--brown);
+  }
+  .pz { font-size: .78rem; margin-left: 5px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+  ul.rail { list-style: none; margin: 0; padding: 0; }
+  ul.rail > li {
+    display: flex; align-items: baseline; gap: 10px;
+    padding: 0 0 9px;
+    font-size: .95rem;
+  }
+  ul.rail .gap { flex: 1 1 auto; }
+  ul.rail .pz { font-size: .85rem; }
+  ul.rail .hint { font-size: .72rem; font-style: italic; color: var(--ink-soft); text-transform: none; }
+
+  /* recuadro fino alrededor de las listas heladas */
+  .iced {
+    position: relative;
+    border: 1px solid var(--navy);
+    padding: 16px 20px 10px;
+  }
+  .flake {
+    position: absolute;
+    color: var(--frost);
+    font-size: 1rem;
+    line-height: 1;
+    pointer-events: none;
+  }
+  .flake.a { top: -9px; right: 14px; font-size: 1.25rem; }
+  .flake.b { top: 12px; right: -10px; }
+  .flake.c { bottom: 16px; left: -11px; }
+
+  /* ---------- promos ---------- */
+  .promos {
+    border: 1px solid var(--brown-3);
+    background: var(--paper-2);
+    padding: 18px 22px 14px;
+  }
+  .promos .ttl {
+    font-family: "Perpetua", Georgia, "Times New Roman", serif;
+    font-size: 1.5rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--brown-2);
+    text-align: center;
+    margin: 0 0 12px;
+  }
+  .promos ul { list-style: none; margin: 0; padding: 0; }
+  .promos ul li {
+    font-size: .78rem;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--brown);
+    padding-bottom: 7px;
+  }
+  .promos .art { display: flex; justify-content: center; margin-top: 12px; }
+
+  /* ---------- nota manuscrita ---------- */
+  .hand {
+    display: flex; align-items: flex-start; gap: 10px;
+    font-family: "Segoe Script", "Lucida Handwriting", "Brush Script MT", cursive;
+    font-size: .96rem;
+    line-height: 1.45;
+    color: var(--brown-3);
+    margin: 18px 0 0;
+  }
+  .hand svg { flex: 0 0 auto; margin-top: 4px; }
+
+  .hand-center {
+    font-family: "Segoe Script", "Lucida Handwriting", "Brush Script MT", cursive;
+    font-size: 1.15rem;
+    color: var(--navy);
+    text-align: center;
+    margin: 16px 0 0;
+  }
+  .wave { display: block; margin: 4px auto 0; }
+
+  /* ---------- combos ---------- */
+  .combo { margin-bottom: 18px; }
+  .combo .t {
+    font-family: "Arial Black", "Segoe UI Black", sans-serif;
+    font-weight: 900;
+    font-size: .95rem;
+    letter-spacing: .02em;
+    text-transform: uppercase;
+    color: var(--brown-2);
+    margin-bottom: 6px;
+  }
+  .combo .t .pz { font-size: .8rem; font-weight: 400; }
+  .combo ul { list-style: none; margin: 0; padding: 0; }
+  .combo ul li { font-size: .88rem; color: var(--brown); padding-bottom: 5px; }
+  .combo ul li .n { color: var(--ink-soft); }
+
+  /* ---------- menú del día ---------- */
+  .daily { display: grid; grid-template-columns: 1fr; border: 2px solid var(--line); }
+  @media (min-width: 660px) { .daily { grid-template-columns: 2.2fr 1fr; } }
+  .daily .main {
+    padding: 26px 30px;
+    display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  }
+  .daily .main .txt {
+    font-family: "Perpetua", Georgia, "Times New Roman", serif;
+    font-size: clamp(1.5rem, 4vw, 2.15rem);
+    line-height: 1.16;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    color: var(--brown-3);
+    text-wrap: balance;
+  }
+  .daily .main .sub {
+    margin-top: 12px;
+    font-family: "Arial Black", "Segoe UI Black", sans-serif;
+    font-weight: 900;
+    font-size: .84rem;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    color: var(--brown-2);
+  }
+  .daily .aside {
+    border-top: 2px solid var(--line);
+    padding: 22px 20px;
+    display: flex; flex-direction: column; align-items: center; gap: 12px;
+    text-align: center;
+  }
+  @media (min-width: 660px) {
+    .daily .aside { border-top: 0; border-left: 2px solid var(--line); }
+  }
+  .daily .aside .lead {
+    font-family: "Perpetua", Georgia, serif;
+    font-size: .96rem;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--brown-2);
+    line-height: 1.4;
+  }
+
+  /* ---------- salados ---------- */
+  .big {
+    font-family: "Arial Black", "Segoe UI Black", sans-serif;
+    font-weight: 900;
+    font-size: clamp(1.7rem, 5vw, 2.35rem);
+    letter-spacing: .015em;
+    text-transform: uppercase;
+    color: var(--navy);
+    margin: 0 0 2px;
+  }
+  .big .pz { font-size: .95rem; font-weight: 400; color: var(--brown); }
+  .big-sub {
+    font-family: "Segoe Script", "Lucida Handwriting", "Brush Script MT", cursive;
+    font-size: .88rem;
+    color: var(--ink-soft);
+    margin: 0 0 14px;
+  }
+  .dish { margin-bottom: 14px; }
+  .dish .t {
+    font-family: "Arial Black", "Segoe UI Black", sans-serif;
+    font-weight: 900;
+    font-size: 1.14rem;
+    letter-spacing: .01em;
+    text-transform: uppercase;
+    color: var(--brown-2);
+  }
+  .dish .d {
+    margin: 3px 0 0;
+    font-size: .84rem;
+    line-height: 1.32;
+    color: var(--brown);
+    max-width: 42ch;
+  }
+
+  hr.sep { border: 0; border-top: 1px solid var(--brown-3); margin: 30px 0; opacity: .55; }
+.logo-mark { width: 150px; height: 95px; background-image: url("data:image/png;base64,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"); background-size: contain; background-position: center; background-repeat: no-repeat; }
+</style>
+
+<!-- ============================ CARA 1 ============================ -->
+<div class="sheet">
+
+  <div class="logo"><div class="logo-mark" role="img" aria-label="Croissant Club"></div></div>
+
+  <div class="cols lean">
+
+    <!-- columna izquierda -->
+    <div>
+      <section>
+        <div class="band">Desayunos y meriendas ☕</div>
+
+        <div class="brk">
+          <div class="t">Tostadas <span class="pz">9.900</span></div>
+          <p class="d">Tostadas a eleccion con dips a eleccion</p>
+        </div>
+        <div class="brk">
+          <div class="t">Tostadas belgas <span class="pz">12.100</span></div>
+          <p class="d">Pan de molde remojado en leche y azucar con frutas frescas</p>
+        </div>
+        <div class="brk">
+          <div class="t">Tostada de palta y huevo revuelto <span class="pz">14.900</span></div>
+          <p class="d">En pan de molde con palta, huevo revuelto, queso crema y dip de chutney de tomate</p>
+        </div>
+        <div class="brk">
+          <div class="t">Tostada de salmon ahumado <span class="pz">16.900</span></div>
+          <p class="d">En pan de molde con queso crema, pickle de cebolla, cherrys, almendras, rucula, sesamo y aceite de oliva</p>
+        </div>
+        <div class="brk">
+          <div class="t">Yogurt con granola y frutas de estacion <span class="pz">13.000</span></div>
+          <p class="d">Yogurt natural, con granola casera y frutas</p>
+        </div>
+        <div class="brk">
+          <div class="t">Pancakes con frutas frescas <span class="pz">11.400</span></div>
+          <p class="d">Frutas frescas, helado y salsa de chocolate</p>
+        </div>
+        <div class="brk">
+          <div class="t">Waffles keto <span class="pz">13.500</span></div>
+          <p class="d">Elaborado harina de almendras, pasta de mani, crema sin azucar y frutos secos</p>
+        </div>
+        <div class="brk">
+          <div class="t">Huevos revueltos <span class="pz">10.500</span></div>
+          <p class="d">Con tostada y dip de queso crema</p>
+        </div>
+        <div class="brk">
+          <div class="t">Desayuno proteico <span class="pz">17.500</span></div>
+          <p class="d">Huevos revueltos, salmon, tybo, almendras, palta cherrys y semillas</p>
+        </div>
+        <div class="brk">
+          <div class="t">Croissant mediterraneo <span class="pz">16.300</span></div>
+          <p class="d">Palta, panceta ahumada, pickle de cebolla y rucula</p>
+        </div>
+        <div class="brk">
+          <div class="t">Croque monsieur <span class="pz">12.500</span></div>
+          <p class="d">Jyq con salsa bechamel en pan de molde gratinado</p>
+        </div>
+        <div class="brk">
+          <div class="t">Croissant de jamon y queso <span class="pz">12.500</span></div>
+        </div>
+      </section>
+
+      <section style="margin-top:28px">
+        <div class="pill">Para compartir</div>
+
+        <div class="combo">
+          <div class="t">Brunch Croissant Club <span class="pz">45.900</span></div>
+          <ul>
+            <li>Croque tradicional <span class="n">(1)</span></li>
+            <li>Laminados a eleccion <span class="n">(1)</span></li>
+            <li>Torta a eleccion <span class="n">(1)</span></li>
+            <li>Mini yogurt con granola <span class="n">(2)</span></li>
+            <li>Scon de queso <span class="n">(1)</span></li>
+            <li>Vasito de exprimido de naranja <span class="n">(2)</span></li>
+            <li>Infusiones o bebida fria <span class="n">(2)</span></li>
+          </ul>
+        </div>
+
+        <div class="combo">
+          <div class="t">Merienda Croissant Club <span class="pz">22.800</span></div>
+          <ul>
+            <li>Medialunas con jamon y queso <span class="n">(2)</span></li>
+            <li>Laminado a eleccion <span class="n">(1)</span></li>
+            <li>Cafe, te o limonada <span class="n">(2)</span></li>
+          </ul>
+        </div>
+      </section>
+    </div>
+
+    <!-- columna derecha -->
+    <div class="stack">
+      <section class="promos">
+        <div class="ttl">Promos</div>
+        <ul>
+          <li>CCL + 2 medialunas</li>
+          <li>CCL + 2 chipa</li>
+          <li>CCL + tostado de miga</li>
+          <li>CCL + laminado</li>
+          <li>CCL + 2 medialunas jyq</li>
+          <li>CCL + chipa jyq</li>
+          <li>CCL + arabe de jyq</li>
+        </ul>
+        <div class="art">
+          <svg width="120" height="76" viewBox="0 0 120 76" fill="none" stroke="#8C5A3A" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="26" y="34" width="68" height="20" rx="2"/>
+            <path d="M30 54v18M90 54v18M26 62h68"/>
+            <rect x="46" y="8" width="30" height="16" rx="2"/>
+            <path d="M52 14h18M52 18h12"/>
+            <path d="M61 24v10"/>
+            <path d="M18 46a5 5 0 0 1 10 0v8a5 5 0 0 1-10 0z"/>
+            <path d="M92 46a5 5 0 0 1 10 0v8a5 5 0 0 1-10 0z"/>
+            <path d="M36 26h8l-1 8h-6z"/>
+          </svg>
+        </div>
+      </section>
+
+      <div class="hand">
+        <svg width="42" height="30" viewBox="0 0 42 30" fill="none" stroke="#B9812F" stroke-width="1.6" stroke-linecap="round">
+          <path d="M40 4C34 20 20 27 4 24"/>
+          <path d="M4 24l8-4M4 24l3 8"/>
+        </svg>
+        <div>Nuestros desayunos y meriendas incluyen bebida</div>
+      </div>
+
+      <section>
+        <div class="pill">Laminados</div>
+        <ul class="rail">
+          <li><span>Palmerita</span><span class="gap"></span><span class="pz">4.000</span></li>
+          <li><span>Rolles rellenos <span class="hint">consultar variedad</span></span><span class="gap"></span><span class="pz">5.800</span></li>
+          <li><span>Enrejado de manzana</span><span class="gap"></span><span class="pz">5.800</span></li>
+          <li><span>Croissant clasico</span><span class="gap"></span><span class="pz">4.000</span></li>
+          <li><span>Croissant relleno <span class="hint">consultar variedad</span></span><span class="gap"></span><span class="pz">5.800</span></li>
+          <li><span>Medialunas de manteca</span><span class="gap"></span><span class="pz">2.000</span></li>
+          <li><span>Pain au chocolat</span><span class="gap"></span><span class="pz">5.800</span></li>
+          <li><span>Danesa con pastelera</span><span class="gap"></span><span class="pz">5.000</span></li>
+        </ul>
+      </section>
+
+      <section>
+        <div class="pill">Pasteleria</div>
+        <div class="cols two" style="gap:20px">
+          <ul class="rail">
+            <li><span>Tortas</span><span class="gap"></span><span class="pz">18.200</span></li>
+            <li><span>Cookies</span><span class="gap"></span><span class="pz">6.800</span></li>
+            <li><span>Brownie</span><span class="gap"></span><span class="pz">14.600</span></li>
+          </ul>
+          <ul class="rail">
+            <li><span>Muffins</span><span class="gap"></span><span class="pz">7.200</span></li>
+            <li><span>Budines</span><span class="gap"></span><span class="pz">6.800</span></li>
+            <li><span>Alfajores</span><span class="gap"></span><span class="pz">7.200</span></li>
+          </ul>
+        </div>
+        <div class="hand-center">
+          consultar variedades
+          <svg class="wave" width="150" height="14" viewBox="0 0 150 14" fill="none" stroke="#414B68" stroke-width="1.8" stroke-linecap="round">
+            <path d="M3 8c6-7 12 7 18 0s12 7 18 0 12 7 18 0 12 7 18 0 12 7 18 0 12 7 18 0 12 7 18 0"/>
+          </svg>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<!-- ============================ CARA 2 ============================ -->
+<div class="sheet">
+
+  <div class="logo"><div class="logo-mark" role="img" aria-label="Croissant Club"></div></div>
+
+  <div class="cols two">
+    <section>
+      <div class="band">Milkshake y frapu</div>
+      <div class="iced">
+        <span class="flake a">❄</span><span class="flake b">❄</span><span class="flake c">❄</span>
+        <ul class="dot">
+          <li>Milkshake DLL <span class="pz">7.500</span></li>
+          <li>Milkshake Oreo <span class="pz">7.500</span></li>
+          <li>Milkshake Choco <span class="pz">7.500</span></li>
+          <li>Frapu con DDL <span class="pz">7.500</span></li>
+          <li>Frapu clasico <span class="pz">7.500</span></li>
+          <li>Ice latte saborizado <span class="pz">5.900</span></li>
+          <li>Ice latte clasico <span class="pz">5.900</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <div class="band">Gaseosas y jugos</div>
+      <div class="iced">
+        <span class="flake a">❄</span><span class="flake b">❄</span><span class="flake c">❄</span>
+        <ul class="dot">
+          <li>Gaseosas <span class="pz">3.500</span></li>
+          <li>Agua con gas <span class="pz">3.500</span></li>
+          <li>Agua sin gas <span class="pz">3.500</span></li>
+          <li>Frutilla y naranja <span class="pz">7.500</span></li>
+          <li>Naranja y mango <span class="pz">7.500</span></li>
+          <li>Durazno y naranja <span class="pz">7.500</span></li>
+          <li>Limonada clasica <span class="pz">7.500</span></li>
+          <li>Exprimido de naranja <span class="pz">7.500</span></li>
+        </ul>
+      </div>
+    </section>
+  </div>
+
+  <div class="cols two" style="margin-top:30px">
+    <section>
+      <div class="bare">Bebidas con alcohol</div>
+      <ul class="dot">
+        <li>Cerveza Stella <span class="pz">4.900</span></li>
+        <li>Vermut con tonica</li>
+        <li>Gin tonic <span class="pz">7.900</span></li>
+        <li>Fernet con coca <span class="pz">7.900</span></li>
+        <li>Campari <span class="pz">7.900</span></li>
+      </ul>
+    </section>
+
+    <section>
+      <div class="bare">Cafeteria</div>
+      <div class="cols two" style="gap:18px">
+        <ul class="dot">
+          <li>Pocillo <span class="pz">3.900</span></li>
+          <li>Jarrito <span class="pz">4.500</span></li>
+          <li>Mediano <span class="pz">4.900</span></li>
+          <li>Tazon <span class="pz">6.200</span></li>
+          <li>Capuccino italiano <span class="pz">5.900</span></li>
+        </ul>
+        <ul class="dot">
+          <li>Submarino <span class="pz">5.900</span></li>
+          <li>Te en hebras <span class="pz">4.900</span></li>
+          <li>Chocoleche <span class="pz">5.900</span></li>
+        </ul>
+      </div>
+    </section>
+  </div>
+
+  <hr class="sep">
+
+  <div class="daily">
+    <div class="main">
+      <div>
+        <div class="txt">Consulta por nuestro menu del dia</div>
+        <div class="sub">Incluye bebida y cafe</div>
+      </div>
+      <svg width="104" height="96" viewBox="0 0 104 96" fill="none" stroke="#8C5A3A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="18" y="10" width="66" height="52" rx="2"/>
+        <path d="M28 22h46M28 32h46M28 42h34M28 52h40"/>
+        <path d="M26 20h50" stroke-width="0"/>
+        <path d="M24 62l-8 28M80 62l8 28M34 84h36"/>
+        <path d="M30 4l4 6M74 4l-4 6"/>
+      </svg>
+    </div>
+    <div class="aside">
+      <div class="lead">Tambien podes pedirlo para llevar</div>
+      <svg width="76" height="80" viewBox="0 0 76 80" fill="none" stroke="#8C5A3A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M16 26h44l-4 46H20z"/>
+        <path d="M16 26l6-10h32l6 10"/>
+        <path d="M30 26c0-8 3-13 8-13s8 5 8 13"/>
+        <path d="M26 46h24" stroke-width="0"/>
+        <text x="38" y="56" text-anchor="middle" font-family="Arial Black, sans-serif" font-size="10" fill="#8C5A3A" stroke="none">TAKE</text>
+        <text x="38" y="67" text-anchor="middle" font-family="Arial Black, sans-serif" font-size="10" fill="#8C5A3A" stroke="none">AWAY</text>
+      </svg>
+    </div>
+  </div>
+
+  <hr class="sep">
+
+  <div class="cols two">
+    <section>
+      <div class="big">Sandwiches <span class="pz">20.900</span></div>
+      <p class="big-sub">con mini mezclum o papas crocantes</p>
+
+      <div class="dish">
+        <div class="t">Pollo apanado</div>
+        <p class="d">Milanesa de pollo, cheddar chutney de tomate y rucula</p>
+      </div>
+      <div class="dish">
+        <div class="t">Carne desmechada</div>
+        <p class="d">Milanesa de peceto, lechuga, tomate confitado tybo y pesto</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="big">Ensaladas <span class="pz">19.900</span></div>
+      <p class="big-sub">&nbsp;</p>
+
+      <div class="dish">
+        <div class="t">Salmon y palta</div>
+        <p class="d">Salmon, boconchinos, queso crema palta, mix de veredes, almendras y cherrys</p>
+      </div>
+      <div class="dish">
+        <div class="t">Pollo crispy</div>
+        <p class="d">Finger de pollo, huevo, parmesano, palta y panceta</p>
+      </div>
+    </section>
+  </div>
+</div>
