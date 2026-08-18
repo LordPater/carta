@@ -347,6 +347,37 @@
   ul.rail .hint { font-size: .85rem; }
   .sub-inline   { font-size: .84rem; }
   .caf-head .sizes { font-size: .82rem; }
+
+  /* ================================================================
+     CELULAR EN VERTICAL
+     Los titulos estaban pensados para una linea. En pantalla angosta
+     no entraban y se partian en dos: la pildora redondeada se volvia
+     un bloque lavanda alto y la carta se veia distinta a lo pensado.
+     Aca la tipografia de los titulos se achica con el ancho, asi
+     siguen entrando de una sola linea en vertical.
+     ================================================================ */
+
+  .band {
+    font-size: clamp(.80rem, 3.3vw, 1.02rem);
+    padding: 7px clamp(14px, 4vw, 26px);
+  }
+  .bare {
+    font-size: clamp(1.02rem, 4.4vw, 1.42rem);
+  }
+  .pill {
+    font-size: clamp(1.12rem, 4.6vw, 1.4rem);
+    padding: 4px clamp(18px, 5vw, 32px);
+  }
+
+  /* el precio tiene que ir al lado del titulo, nunca debajo */
+  .big {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: baseline;
+    gap: .5em;
+    font-size: clamp(1.32rem, 5.2vw, 2.35rem);
+  }
+  .big .pz { white-space: nowrap; flex: 0 0 auto; }
 </style>
 </head>
 <body>
@@ -364,51 +395,51 @@
         <div class="band">Desayunos y meriendas ☕</div>
 
         <div class="brk">
-          <div class="t">Tostadas <span class="pz">9.900</span></div>
+          <div class="t">Tostadas <span class="pz" data-p="tostadas">9.900</span></div>
           <p class="d">Tostadas a eleccion con dips a eleccion</p>
         </div>
         <div class="brk">
-          <div class="t">Tostadas belgas <span class="pz">12.100</span></div>
+          <div class="t">Tostadas belgas <span class="pz" data-p="tostadas-belgas">12.100</span></div>
           <p class="d">Pan de molde remojado en leche y azucar con frutas frescas</p>
         </div>
         <div class="brk">
-          <div class="t">Tostada de palta y huevo revuelto <span class="pz">14.900</span></div>
+          <div class="t">Tostada de palta y huevo revuelto <span class="pz" data-p="tostada-de-palta-y-huevo-revuelto">14.900</span></div>
           <p class="d">En pan de molde con palta, huevo revuelto, queso crema y dip de chutney de tomate</p>
         </div>
         <div class="brk">
-          <div class="t">Tostada de salmon ahumado <span class="pz">16.900</span></div>
+          <div class="t">Tostada de salmon ahumado <span class="pz" data-p="tostada-de-salmon-ahumado">16.900</span></div>
           <p class="d">En pan de molde con queso crema, pickle de cebolla, cherrys, almendras, rucula, sesamo y aceite de oliva</p>
         </div>
         <div class="brk">
-          <div class="t">Yogurt con granola y frutas de estacion <span class="pz">13.000</span></div>
+          <div class="t">Yogurt con granola y frutas de estacion <span class="pz" data-p="yogurt-con-granola-y-frutas-de-estacion">13.000</span></div>
           <p class="d">Yogurt natural, con granola casera y frutas</p>
         </div>
         <div class="brk">
-          <div class="t">Pancakes con frutas frescas <span class="pz">11.400</span></div>
+          <div class="t">Pancakes con frutas frescas <span class="pz" data-p="pancakes-con-frutas-frescas">11.400</span></div>
           <p class="d">Frutas frescas, helado y salsa de chocolate</p>
         </div>
         <div class="brk">
-          <div class="t">Waffles keto <span class="pz">13.500</span></div>
+          <div class="t">Waffles keto <span class="pz" data-p="waffles-keto">13.500</span></div>
           <p class="d">Elaborado harina de almendras, pasta de mani, crema sin azucar y frutos secos</p>
         </div>
         <div class="brk">
-          <div class="t">Huevos revueltos <span class="pz">10.500</span></div>
+          <div class="t">Huevos revueltos <span class="pz" data-p="huevos-revueltos">10.500</span></div>
           <p class="d">Con tostada y dip de queso crema</p>
         </div>
         <div class="brk">
-          <div class="t">Desayuno proteico <span class="pz">17.500</span></div>
+          <div class="t">Desayuno proteico <span class="pz" data-p="desayuno-proteico">17.500</span></div>
           <p class="d">Huevos revueltos, salmon, tybo, almendras, palta cherrys y semillas</p>
         </div>
         <div class="brk">
-          <div class="t">Croissant mediterraneo <span class="pz">16.300</span></div>
+          <div class="t">Croissant mediterraneo <span class="pz" data-p="croissant-mediterraneo">16.300</span></div>
           <p class="d">Palta, panceta ahumada, pickle de cebolla y rucula</p>
         </div>
         <div class="brk">
-          <div class="t">Croque monsieur <span class="pz">12.500</span></div>
+          <div class="t">Croque monsieur <span class="pz" data-p="croque-monsieur">12.500</span></div>
           <p class="d">Jyq con salsa bechamel en pan de molde gratinado</p>
         </div>
         <div class="brk">
-          <div class="t">Croissant de jamon y queso <span class="pz">12.500</span></div>
+          <div class="t">Croissant de jamon y queso <span class="pz" data-p="croissant-de-jamon-y-queso">12.500</span></div>
         </div>
       </section>
 
@@ -416,7 +447,7 @@
         <div class="pill">Para compartir</div>
 
         <div class="combo">
-          <div class="t">Brunch Croissant Club <span class="pz">45.900</span></div>
+          <div class="t">Brunch Croissant Club <span class="pz" data-p="brunch-croissant-club">45.900</span></div>
           <ul>
             <li>Croque tradicional <span class="n">(1)</span></li>
             <li>Laminados a eleccion <span class="n">(1)</span></li>
@@ -429,7 +460,7 @@
         </div>
 
         <div class="combo">
-          <div class="t">Merienda Croissant Club <span class="pz">22.800</span></div>
+          <div class="t">Merienda Croissant Club <span class="pz" data-p="merienda-croissant-club">22.800</span></div>
           <ul>
             <li>Medialunas con jamon y queso <span class="n">(2)</span></li>
             <li>Laminado a eleccion <span class="n">(1)</span></li>
@@ -477,14 +508,14 @@
       <section>
         <div class="pill">Laminados</div>
         <ul class="rail">
-          <li><span>Palmerita</span><span class="gap"></span><span class="pz">4.000</span></li>
-          <li><span>Rolles rellenos <span class="hint">consultar variedad</span></span><span class="gap"></span><span class="pz">5.800</span></li>
-          <li><span>Enrejado de manzana</span><span class="gap"></span><span class="pz">5.800</span></li>
-          <li><span>Croissant clasico</span><span class="gap"></span><span class="pz">4.000</span></li>
-          <li><span>Croissant relleno <span class="hint">consultar variedad</span></span><span class="gap"></span><span class="pz">5.800</span></li>
-          <li><span>Medialunas de manteca</span><span class="gap"></span><span class="pz">2.000</span></li>
-          <li><span>Pain au chocolat</span><span class="gap"></span><span class="pz">5.800</span></li>
-          <li><span>Danesa con pastelera</span><span class="gap"></span><span class="pz">5.000</span></li>
+          <li><span>Palmerita</span><span class="gap"></span><span class="pz" data-p="palmerita">4.000</span></li>
+          <li><span>Rolles rellenos <span class="hint">consultar variedad</span></span><span class="gap"></span><span class="pz" data-p="rolles-rellenos-consultar-variedad">5.800</span></li>
+          <li><span>Enrejado de manzana</span><span class="gap"></span><span class="pz" data-p="enrejado-de-manzana">5.800</span></li>
+          <li><span>Croissant clasico</span><span class="gap"></span><span class="pz" data-p="croissant-clasico">4.000</span></li>
+          <li><span>Croissant relleno <span class="hint">consultar variedad</span></span><span class="gap"></span><span class="pz" data-p="croissant-relleno-consultar-variedad">5.800</span></li>
+          <li><span>Medialunas de manteca</span><span class="gap"></span><span class="pz" data-p="medialunas-de-manteca">2.000</span></li>
+          <li><span>Pain au chocolat</span><span class="gap"></span><span class="pz" data-p="pain-au-chocolat">5.800</span></li>
+          <li><span>Danesa con pastelera</span><span class="gap"></span><span class="pz" data-p="danesa-con-pastelera">5.000</span></li>
         </ul>
       </section>
 
@@ -492,14 +523,14 @@
         <div class="pill">Pasteleria</div>
         <div class="cols two" style="gap:20px">
           <ul class="rail">
-            <li><span>Tortas</span><span class="gap"></span><span class="pz">18.200</span></li>
-            <li><span>Cookies</span><span class="gap"></span><span class="pz">6.800</span></li>
-            <li><span>Brownie</span><span class="gap"></span><span class="pz">14.600</span></li>
+            <li><span>Tortas</span><span class="gap"></span><span class="pz" data-p="tortas">18.200</span></li>
+            <li><span>Cookies</span><span class="gap"></span><span class="pz" data-p="cookies">6.800</span></li>
+            <li><span>Brownie</span><span class="gap"></span><span class="pz" data-p="brownie">14.600</span></li>
           </ul>
           <ul class="rail">
-            <li><span>Muffins</span><span class="gap"></span><span class="pz">7.200</span></li>
-            <li><span>Budines</span><span class="gap"></span><span class="pz">6.800</span></li>
-            <li><span>Alfajores</span><span class="gap"></span><span class="pz">7.200</span></li>
+            <li><span>Muffins</span><span class="gap"></span><span class="pz" data-p="muffins">7.200</span></li>
+            <li><span>Budines</span><span class="gap"></span><span class="pz" data-p="budines">6.800</span></li>
+            <li><span>Alfajores</span><span class="gap"></span><span class="pz" data-p="alfajores">7.200</span></li>
           </ul>
         </div>
         <div class="hand-center">
@@ -524,13 +555,13 @@
       <div class="iced">
         <span class="flake a">❄</span><span class="flake b">❄</span><span class="flake c">❄</span>
         <ul class="dot">
-          <li>Milkshake DLL <span class="pz">7.500</span></li>
-          <li>Milkshake Oreo <span class="pz">7.500</span></li>
-          <li>Milkshake Choco <span class="pz">7.500</span></li>
-          <li>Frapu con DDL <span class="pz">7.500</span></li>
-          <li>Frapu clasico <span class="pz">7.500</span></li>
-          <li>Ice latte saborizado <span class="pz">5.900</span></li>
-          <li>Ice latte clasico <span class="pz">5.900</span></li>
+          <li>Milkshake DLL <span class="pz" data-p="milkshake-dll">7.500</span></li>
+          <li>Milkshake Oreo <span class="pz" data-p="milkshake-oreo">7.500</span></li>
+          <li>Milkshake Choco <span class="pz" data-p="milkshake-choco">7.500</span></li>
+          <li>Frapu con DDL <span class="pz" data-p="frapu-con-ddl">7.500</span></li>
+          <li>Frapu clasico <span class="pz" data-p="frapu-clasico">7.500</span></li>
+          <li>Ice latte saborizado <span class="pz" data-p="ice-latte-saborizado">5.900</span></li>
+          <li>Ice latte clasico <span class="pz" data-p="ice-latte-clasico">5.900</span></li>
         </ul>
       </div>
     </section>
@@ -540,14 +571,14 @@
       <div class="iced">
         <span class="flake a">❄</span><span class="flake b">❄</span><span class="flake c">❄</span>
         <ul class="dot">
-          <li>Gaseosas <span class="pz">3.500</span></li>
-          <li>Agua con gas <span class="pz">3.500</span></li>
-          <li>Agua sin gas <span class="pz">3.500</span></li>
-          <li>Frutilla y naranja <span class="pz">7.500</span></li>
-          <li>Naranja y mango <span class="pz">7.500</span></li>
-          <li>Durazno y naranja <span class="pz">7.500</span></li>
-          <li>Limonada clasica <span class="pz">7.500</span></li>
-          <li>Exprimido de naranja <span class="pz">7.500</span></li>
+          <li>Gaseosas <span class="pz" data-p="gaseosas">3.500</span></li>
+          <li>Agua con gas <span class="pz" data-p="agua-con-gas">3.500</span></li>
+          <li>Agua sin gas <span class="pz" data-p="agua-sin-gas">3.500</span></li>
+          <li>Frutilla y naranja <span class="pz" data-p="frutilla-y-naranja">7.500</span></li>
+          <li>Naranja y mango <span class="pz" data-p="naranja-y-mango">7.500</span></li>
+          <li>Durazno y naranja <span class="pz" data-p="durazno-y-naranja">7.500</span></li>
+          <li>Limonada clasica <span class="pz" data-p="limonada-clasica">7.500</span></li>
+          <li>Exprimido de naranja <span class="pz" data-p="exprimido-de-naranja">7.500</span></li>
         </ul>
       </div>
     </section>
@@ -557,11 +588,11 @@
     <section>
       <div class="bare">Bebidas con alcohol</div>
       <ul class="dot">
-        <li>Cerveza Stella <span class="pz">4.900</span></li>
+        <li>Cerveza Stella <span class="pz" data-p="cerveza-stella">4.900</span></li>
         <li>Vermut con tonica</li>
-        <li>Gin tonic <span class="pz">7.900</span></li>
-        <li>Fernet con coca <span class="pz">7.900</span></li>
-        <li>Campari <span class="pz">7.900</span></li>
+        <li>Gin tonic <span class="pz" data-p="gin-tonic">7.900</span></li>
+        <li>Fernet con coca <span class="pz" data-p="fernet-con-coca">7.900</span></li>
+        <li>Campari <span class="pz" data-p="campari">7.900</span></li>
       </ul>
     </section>
 
@@ -569,16 +600,16 @@
       <div class="bare">Cafeteria</div>
       <div class="cols two" style="gap:18px">
         <ul class="dot">
-          <li>Pocillo <span class="pz">3.900</span></li>
-          <li>Jarrito <span class="pz">4.500</span></li>
-          <li>Mediano <span class="pz">4.900</span></li>
-          <li>Tazon <span class="pz">6.200</span></li>
-          <li>Capuccino italiano <span class="pz">5.900</span></li>
+          <li>Pocillo <span class="pz" data-p="pocillo">3.900</span></li>
+          <li>Jarrito <span class="pz" data-p="jarrito">4.500</span></li>
+          <li>Mediano <span class="pz" data-p="mediano">4.900</span></li>
+          <li>Tazon <span class="pz" data-p="tazon">6.200</span></li>
+          <li>Capuccino italiano <span class="pz" data-p="capuccino-italiano">5.900</span></li>
         </ul>
         <ul class="dot">
-          <li>Submarino <span class="pz">5.900</span></li>
-          <li>Te en hebras <span class="pz">4.900</span></li>
-          <li>Chocoleche <span class="pz">5.900</span></li>
+          <li>Submarino <span class="pz" data-p="submarino">5.900</span></li>
+          <li>Te en hebras <span class="pz" data-p="te-en-hebras">4.900</span></li>
+          <li>Chocoleche <span class="pz" data-p="chocoleche">5.900</span></li>
         </ul>
       </div>
     </section>
@@ -617,7 +648,7 @@
 
   <div class="cols two">
     <section>
-      <div class="big">Sandwiches <span class="pz">20.900</span></div>
+      <div class="big">Sandwiches <span class="pz" data-p="sandwiches">20.900</span></div>
       <p class="big-sub">con mini mezclum o papas crocantes</p>
 
       <div class="dish">
@@ -631,7 +662,7 @@
     </section>
 
     <section>
-      <div class="big">Ensaladas <span class="pz">19.900</span></div>
+      <div class="big">Ensaladas <span class="pz" data-p="ensaladas">19.900</span></div>
       <p class="big-sub">&nbsp;</p>
 
       <div class="dish">
@@ -645,5 +676,35 @@
     </section>
   </div>
 </div>
+<script>
+/* Precios editables desde GitHub.
+   La pagina lee precios.json y reemplaza los numeros. Si el archivo falla,
+   faltara o tuviera un error de tipeo, quedan los precios escritos en el HTML:
+   la carta nunca se rompe ni aparece vacia. */
+(function () {
+  var esperado = document.querySelectorAll('.pz[data-p]').length;
+
+  fetch('precios.json?v=' + Date.now(), {cache: 'no-store'})
+    .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
+    .then(function (d) {
+      var tabla = d.precios || {};
+      var ajuste = Number(d.ajuste);
+      if (!isFinite(ajuste) || ajuste <= 0) ajuste = 1;
+
+      var puestos = 0;
+      document.querySelectorAll('.pz[data-p]').forEach(function (el) {
+        var base = Number(tabla[el.dataset.p]);
+        if (!isFinite(base) || base <= 0) return;          // clave rota: se deja el precio del HTML
+        var v = Math.round(base * ajuste / 100) * 100;      // redondeo a los 100
+        el.textContent = v.toLocaleString('es-AR');
+        puestos++;
+      });
+      console.log('precios aplicados: ' + puestos + '/' + esperado + ' (ajuste ' + ajuste + ')');
+    })
+    .catch(function (e) {
+      console.log('precios.json no disponible (' + e + '); se usan los del HTML');
+    });
+})();
+</script>
 </body>
 </html>
