@@ -395,7 +395,7 @@
 
     <!-- columna izquierda -->
     <div>
-      <section>
+      <section data-sec="desayunos">
         <div class="band">Desayunos y meriendas ☕</div>
 
         <div class="brk">
@@ -511,7 +511,7 @@
 
       <section>
         <div class="pill">Laminados</div>
-        <ul class="rail">
+        <ul class="rail" data-sec="laminados">
           <li><span>Palmerita</span><span class="gap"></span><span class="pz" data-p="palmerita">4.000</span></li>
           <li><span>Rolles rellenos <span class="hint">consultar variedad</span></span><span class="gap"></span><span class="pz" data-p="rolles-rellenos-consultar-variedad">5.800</span></li>
           <li><span>Enrejado de manzana</span><span class="gap"></span><span class="pz" data-p="enrejado-de-manzana">5.800</span></li>
@@ -558,7 +558,7 @@
       <div class="band">Milkshake y frapu</div>
       <div class="iced">
         <span class="flake a">❄</span><span class="flake b">❄</span><span class="flake c">❄</span>
-        <ul class="dot">
+        <ul class="dot" data-sec="milkshakes">
           <li>Milkshake DLL <span class="pz" data-p="milkshake-dll">7.500</span></li>
           <li>Milkshake Oreo <span class="pz" data-p="milkshake-oreo">7.500</span></li>
           <li>Milkshake Choco <span class="pz" data-p="milkshake-choco">7.500</span></li>
@@ -574,7 +574,7 @@
       <div class="band">Gaseosas y jugos</div>
       <div class="iced">
         <span class="flake a">❄</span><span class="flake b">❄</span><span class="flake c">❄</span>
-        <ul class="dot">
+        <ul class="dot" data-sec="jugos">
           <li>Gaseosas <span class="pz" data-p="gaseosas">3.500</span></li>
           <li>Agua con gas <span class="pz" data-p="agua-con-gas">3.500</span></li>
           <li>Agua sin gas <span class="pz" data-p="agua-sin-gas">3.500</span></li>
@@ -591,7 +591,7 @@
   <div class="cols two" style="margin-top:30px">
     <section>
       <div class="bare">Bebidas con alcohol</div>
-      <ul class="dot">
+      <ul class="dot" data-sec="alcohol">
         <li>Cerveza Stella <span class="pz" data-p="cerveza-stella">4.900</span></li>
         <li>Vermut con tonica</li>
         <li>Gin tonic <span class="pz" data-p="gin-tonic">7.900</span></li>
@@ -603,7 +603,7 @@
     <section>
       <div class="bare">Cafeteria</div>
       <div class="cols two" style="gap:18px">
-        <ul class="dot">
+        <ul class="dot" data-sec="cafeteria">
           <li>Pocillo <span class="pz" data-p="pocillo">3.900</span></li>
           <li>Jarrito <span class="pz" data-p="jarrito">4.500</span></li>
           <li>Mediano <span class="pz" data-p="mediano">4.900</span></li>
@@ -651,7 +651,7 @@
   <hr class="sep">
 
   <div class="cols two">
-    <section>
+    <section data-sec="sandwiches">
       <div class="big">Sandwiches <span class="pz" data-p="sandwiches">20.900</span></div>
       <p class="big-sub">con mini mezclum o papas crocantes</p>
 
@@ -665,7 +665,7 @@
       </div>
     </section>
 
-    <section>
+    <section data-sec="ensaladas">
       <div class="big">Ensaladas <span class="pz" data-p="ensaladas">19.900</span></div>
       <p class="big-sub">&nbsp;</p>
 
@@ -681,32 +681,134 @@
   </div>
 </div>
 <script>
-/* Precios editables desde GitHub.
-   La pagina lee precios.json y reemplaza los numeros. Si el archivo falla,
-   faltara o tuviera un error de tipeo, quedan los precios escritos en el HTML:
-   la carta nunca se rompe ni aparece vacia. */
-(function () {
-  var esperado = document.querySelectorAll('.pz[data-p]').length;
+/* ------------------------------------------------------------------
+   Carta editable desde GitHub.
 
-  fetch('precios.json?v=' + Date.now(), {cache: 'no-store'})
-    .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
+   La pagina lee carta.json y aplica: aumento general, precios, nombres,
+   ingredientes, productos ocultos y productos nuevos.
+
+   Regla de oro: si el archivo falta, no parsea o trae una clave que no
+   existe, NO se rompe nada. Queda la carta escrita en el HTML, que es la
+   ultima version buena. Nunca se ve vacia.
+   ------------------------------------------------------------------ */
+(function () {
+  'use strict';
+
+  var plata = function (n) { return Math.round(n / 100) * 100; };
+
+  function itemDe(clave) {
+    var pz = document.querySelector('.pz[data-p="' + clave + '"]');
+    if (!pz) return null;
+    return pz.closest('.brk, .dish, li, .combo');
+  }
+
+  function nuevoItem(cont, p) {
+    var nombre = String(p.nombre || '').trim();
+    if (!nombre) return null;
+    var precio = Number(p.precio);
+    var txtPrecio = isFinite(precio) && precio > 0 ? plata(precio).toLocaleString('es-AR') : '';
+    var desc = String(p.ingredientes || p.desc || '').trim();
+    var el;
+
+    if (cont.tagName === 'UL') {
+      el = document.createElement('li');
+      if (cont.classList.contains('rail')) {
+        el.innerHTML = '<span></span><span class="gap"></span><span class="pz"></span>';
+        el.children[0].textContent = nombre;
+        el.children[2].textContent = txtPrecio;
+      } else {
+        el.innerHTML = ' <span class="pz"></span>';
+        el.insertBefore(document.createTextNode(nombre), el.firstChild);
+        el.querySelector('.pz').textContent = txtPrecio;
+      }
+      return el;
+    }
+
+    // secciones de desayunos / sandwiches / ensaladas
+    var esPlato = !!cont.querySelector('.dish');
+    el = document.createElement('div');
+    el.className = esPlato ? 'dish' : 'brk';
+    var t = document.createElement('div');
+    t.className = 't';
+    t.textContent = nombre;
+    if (txtPrecio) {
+      var s = document.createElement('span');
+      s.className = 'pz';
+      s.textContent = ' ' + txtPrecio;
+      t.appendChild(s);
+    }
+    el.appendChild(t);
+    if (desc) {
+      var d = document.createElement('p');
+      d.className = 'd';
+      d.textContent = desc;
+      el.appendChild(d);
+    }
+    return el;
+  }
+
+  fetch('carta.json?v=' + Date.now(), {cache: 'no-store'})
+    .then(function (r) { return r.ok ? r.json() : Promise.reject('HTTP ' + r.status); })
     .then(function (d) {
-      var tabla = d.precios || {};
       var ajuste = Number(d.ajuste);
       if (!isFinite(ajuste) || ajuste <= 0) ajuste = 1;
 
-      var puestos = 0;
+      // --- precios ---
+      var precios = d.precios || {}, n = 0;
       document.querySelectorAll('.pz[data-p]').forEach(function (el) {
-        var base = Number(tabla[el.dataset.p]);
-        if (!isFinite(base) || base <= 0) return;          // clave rota: se deja el precio del HTML
-        var v = Math.round(base * ajuste / 100) * 100;      // redondeo a los 100
-        el.textContent = v.toLocaleString('es-AR');
-        puestos++;
+        var base = Number(precios[el.dataset.p]);
+        if (!isFinite(base) || base <= 0) return;
+        el.textContent = plata(base * ajuste).toLocaleString('es-AR');
+        n++;
       });
-      console.log('precios aplicados: ' + puestos + '/' + esperado + ' (ajuste ' + ajuste + ')');
+
+      // --- nombres ---
+      Object.keys(d.nombres || {}).forEach(function (k) {
+        var it = itemDe(k);
+        if (!it) return;
+        var pz = it.querySelector('.pz[data-p="' + k + '"]');
+        var cont = it.querySelector('.t') || it;
+        // reemplaza solo el texto, dejando intacto el precio
+        [].slice.call(cont.childNodes).forEach(function (nd) {
+          if (nd.nodeType === 3) nd.remove();
+        });
+        cont.insertBefore(document.createTextNode(String(d.nombres[k]) + ' '), pz || null);
+      });
+
+      // --- ingredientes ---
+      Object.keys(d.ingredientes || {}).forEach(function (k) {
+        var it = itemDe(k);
+        if (!it) return;
+        var p = it.querySelector('.d');
+        if (!p) {
+          p = document.createElement('p');
+          p.className = 'd';
+          it.appendChild(p);
+        }
+        p.textContent = String(d.ingredientes[k]);
+      });
+
+      // --- ocultar ---
+      (d.ocultar || []).forEach(function (k) {
+        var it = itemDe(String(k).trim());
+        if (it) it.style.display = 'none';
+      });
+
+      // --- agregar ---
+      var sumados = 0;
+      Object.keys(d.agregar || {}).forEach(function (sec) {
+        var cont = document.querySelector('[data-sec="' + sec + '"]');
+        if (!cont || !Array.isArray(d.agregar[sec])) return;
+        d.agregar[sec].forEach(function (p) {
+          var el = nuevoItem(cont, p);
+          if (el) { cont.appendChild(el); sumados++; }
+        });
+      });
+
+      console.log('carta.json aplicado — precios ' + n + ', nuevos ' + sumados + ', ajuste ' + ajuste);
     })
     .catch(function (e) {
-      console.log('precios.json no disponible (' + e + '); se usan los del HTML');
+      console.log('carta.json no disponible (' + e + '). Se muestra la carta del HTML.');
     });
 })();
 </script>
