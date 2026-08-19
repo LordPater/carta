@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Códigos QR</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+  :root {
+    --fondo:  #DCD9CF;
+    --panel:  #FBFAF7;
+    --tinta:  #23231E;
+    --suave:  #63625A;
+    --linea:  #B9B6AA;
+    --ambar:  #9C7009;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --fondo: #17170F; --panel: #21211A; --tinta: #E9E5D8;
+      --suave: #9B9887; --linea: #3A392F; --ambar: #DCA92E;
+    }
+  }
+  :root[data-theme="dark"] {
+    --fondo: #17170F; --panel: #21211A; --tinta: #E9E5D8;
+    --suave: #9B9887; --linea: #3A392F; --ambar: #DCA92E;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 0 18px 60px;
+    background: var(--fondo); color: var(--tinta);
+    font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+    font-size: 17px; line-height: 1.55;
+  }
+  .w { max-width: 40rem; margin: 0 auto; }
+
+  header { padding: 34px 0 20px; border-bottom: 3px solid var(--tinta); margin-bottom: 30px; }
+  h1 {
+    margin: 0 0 6px; font-size: 30px;
+    font-family: "Arial Black", "Segoe UI Black", sans-serif;
+    text-transform: uppercase; letter-spacing: -.01em;
+  }
+  header p { margin: 0; color: var(--suave); font-size: 15px; }
+
+  .qr { background: var(--panel); border: 1px solid var(--linea); padding: 22px; margin: 0 0 22px; }
+  .qr h2 {
+    margin: 0 0 4px; font-size: 19px;
+    font-family: "Arial Black", "Segoe UI Black", sans-serif; text-transform: uppercase;
+  }
+  .qr .que { margin: 0 0 16px; color: var(--suave); font-size: 15px; }
+  .qr img {
+    display: block; width: 100%; max-width: 300px; height: auto;
+    margin: 0 auto 16px; background: #fff; padding: 10px;
+  }
+  .qr .destino {
+    font-family: Consolas, Menlo, monospace; font-size: 12.5px;
+    word-break: break-all; color: var(--suave);
+    padding: 10px 12px; background: var(--fondo); border-left: 3px solid var(--ambar);
+  }
+  .bajar { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+  .bajar a {
+    font-size: 13px; letter-spacing: .08em; text-transform: uppercase; font-weight: 700;
+    color: var(--tinta); text-decoration: none;
+    border: 2px solid var(--tinta); padding: 8px 14px;
+  }
+  .bajar a:hover { background: var(--tinta); color: var(--panel); }
+  .bajar a:focus-visible { outline: 3px solid var(--ambar); outline-offset: 2px; }
+
+  .nota { border-left: 3px solid var(--ambar); padding: 2px 0 2px 16px; color: var(--suave); font-size: 15px; }
+  footer { margin-top: 30px; padding-top: 16px; border-top: 1px solid var(--linea); color: var(--suave); font-size: 13.5px; }
+  a.simple { color: var(--ambar); }
+</style>
+</head>
+<body>
+<div class="w">
+
+<header>
+  <h1>Códigos QR</h1>
+  <p>Croissant Club · para imprimir o mostrar desde el celular</p>
+</header>
+
+<div class="qr">
+  <h2>La carta</h2>
+  <p class="que">Para las mesas y el mostrador. Abre el menú completo.</p>
+  <img src="carta-con-logo.png" alt="Código QR que abre la carta">
+  <div class="destino">https://croissantclub.github.io</div>
+  <div class="bajar">
+    <a href="carta-con-logo.png" download>Con logo</a>
+    <a href="carta-simple.png" download>Sin logo</a>
+    <a href="carta-vectorial.svg" download>Vectorial</a>
+  </div>
+  <p class="nota" style="margin-top:16px">Para imprenta usar el vectorial: no pierde calidad a ningún tamaño. De 4 cm para arriba se escanea sobrado.</p>
+</div>
+
+<div class="qr">
+  <h2>Dejar una reseña</h2>
+  <p class="que">Abre directo el formulario de opinión de Google, con las estrellas listas. Sucursal Av. Riestra 6221.</p>
+  <img src="resenas-google.png" alt="Código QR que abre el formulario de reseña de Google">
+  <div class="destino">https://search.google.com/local/writereview?placeid=ChIJyV-hk-vJvJURK0MXK1hlW60</div>
+  <div class="bajar">
+    <a href="resenas-google.png" download>Descargar</a>
+  </div>
+</div>
+
+<footer>
+  Enlaces sueltos: <a class="simple" href="https://croissantclub.github.io">la carta</a> ·
+  <a class="simple" href="https://search.google.com/local/writereview?placeid=ChIJyV-hk-vJvJURK0MXK1hlW60">dejar reseña</a> ·
+  <a class="simple" href="https://maps.google.com/?cid=12491689420796674859">ficha de Google</a> ·
+  <a class="simple" href="https://www.instagram.com/croissantclub.ba/">Instagram</a>
+  <br><br>
+  Para cambiar precios o productos: <a class="simple" href="https://github.com/croissantclub/croissantclub.github.io/blob/main/COMO-EDITAR-LA-CARTA.md">guía de edición</a>.
+</footer>
+
+</div>
+</body>
+</html>
